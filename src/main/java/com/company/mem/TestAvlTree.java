@@ -1,10 +1,9 @@
-package com.company.bst;
-
+package com.company.mem;
 
 import com.company.MyTree;
 import com.company.Node;
 
-public class BstTree implements MyTree {
+public class TestAvlTree implements MyTree {
 
     private Node root;
 
@@ -20,13 +19,11 @@ public class BstTree implements MyTree {
         }
         if (val < node.getData()) {
             node.setLeftChild(insert(node.getLeftChild(), val));
-        } else if (val > node.getData()){
+        } else if (val > node.getData()) {
             node.setRightChild(insert(node.getRightChild(), val));
-        } else {
-            return node;
         }
         updateHeight(node);
-        return applyRotation(node);
+        return rotate(node);
     }
 
     @Override
@@ -39,25 +36,24 @@ public class BstTree implements MyTree {
             return null;
         }
         if (node.getData() == val) {
-            Node right = node.getRightChild();
             Node left = node.getLeftChild();
+            Node right = node.getRightChild();
             if (right == null) {
                 return left;
             }
-            Node temp = right;
-            while (temp.getLeftChild() != null) {
-                temp = temp.getLeftChild();
+            node = right;
+            while (node.getLeftChild() != null) {
+                node = node.getLeftChild();
             }
-            temp.setLeftChild(left);
+            node.setLeftChild(left);
             return right;
-        }
-        if (val < node.getData()) {
+        } else if (val < node.getData()) {
             node.setLeftChild(delete(node.getLeftChild(), val));
         } else {
             node.setRightChild(delete(node.getRightChild(), val));
         }
         updateHeight(node);
-        return applyRotation(node);
+        return rotate(node);
     }
 
     private void updateHeight(Node node) {
@@ -68,45 +64,50 @@ public class BstTree implements MyTree {
         return node == null ? 0 : node.getHeight();
     }
 
-    private Node applyRotation(Node node) {
+    private Node rotate(Node node) {
         int balance = balance(node);
-        if (balance > 1) {
-            if (balance(node.getLeftChild()) < 0) {
-                node.setLeftChild(rotateLeft(node.getLeftChild()));
-            }
-            return rotateRight(node);
-        }
         if (balance < -1) {
             if (balance(node.getRightChild()) > 0) {
                 node.setRightChild(rotateRight(node.getRightChild()));
             }
             return rotateLeft(node);
         }
+        if (balance > 1) {
+            if (balance(node.getLeftChild()) < 0) {
+                node.setLeftChild(rotateLeft(node.getLeftChild()));
+            }
+            return rotateRight(node);
+        }
         return node;
     }
 
-    private Node rotateRight(Node node) {
-        Node leftNode = node.getLeftChild();
-        Node centerNode = leftNode.getRightChild();
-        leftNode.setRightChild(node);
-        node.setLeftChild(centerNode);
-        updateHeight(node);
-        updateHeight(leftNode);
-        return leftNode;
+
+
+    private int balance(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return height(node.getLeftChild()) - height(node.getRightChild());
     }
 
     private Node rotateLeft(Node node) {
-        Node rightNode = node.getRightChild();
-        Node centerNode = rightNode.getLeftChild();
-        rightNode.setLeftChild(node);
-        node.setRightChild(centerNode);
+        Node right = node.getRightChild();
+        Node center = right.getLeftChild();
+        right.setLeftChild(node);
+        node.setRightChild(center);
+        updateHeight(right);
         updateHeight(node);
-        updateHeight(rightNode);
-        return rightNode;
+        return right;
     }
 
-    private int balance(Node node) {
-        return node == null ? 0 : height(node.getLeftChild()) - height(node.getRightChild());
+    private Node rotateRight(Node node) {
+        Node left = node.getLeftChild();
+        Node center = left.getRightChild();
+        left.setRightChild(node);
+        node.setLeftChild(center);
+        updateHeight(left);
+        updateHeight(node);
+        return left;
     }
 
     @Override
@@ -114,13 +115,12 @@ public class BstTree implements MyTree {
         traverse(root);
     }
 
-    private void traverse(Node root) {
-        if (root == null) {
-            return;
+    private void traverse(Node node) {
+        if (node != null) {
+            traverse(node.getLeftChild());
+            System.out.println(node.getData());
+            traverse(node.getRightChild());
         }
-        traverse(root.getLeftChild());
-        System.out.println(root.getData());
-        traverse(root.getRightChild());
     }
 
     @Override
@@ -128,14 +128,11 @@ public class BstTree implements MyTree {
         if (isEmpty()) {
             return null;
         }
-        return getMax(root);
-    }
-
-    private Integer getMax(Node node) {
-        if (node.getRightChild() == null) {
-            return node.getData();
+        Node current = root;
+        while (current.getRightChild() != null) {
+            current = current.getRightChild();
         }
-        return getMax(node.getRightChild());
+        return current.getData();
     }
 
     @Override
@@ -143,14 +140,11 @@ public class BstTree implements MyTree {
         if (isEmpty()) {
             return null;
         }
-        return getMin(root);
-    }
-
-    private Integer getMin(Node node) {
-        if (node.getLeftChild() == null) {
-            return node.getData();
+        Node current = root;
+        while (current.getLeftChild() != null) {
+            current = current.getLeftChild();
         }
-        return getMin(node.getLeftChild());
+        return current.getData();
     }
 
     @Override
