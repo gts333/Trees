@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="963af654-b299-444f-b168-aa59234cdb33" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/HINTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/redBlack/RedBlackTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/company/Color.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HINTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/HINTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/company/redBlack/RedBlackTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/company/redBlack/RedBlackTree.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -23,7 +26,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2M42sRgBFL9gqCsFHObNJtjklca" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
